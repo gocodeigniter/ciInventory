@@ -2,11 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Buat Pengguna</title>
+    <title>Buat Pegawai</title>
   </head>
   <body>
 
-    <form action="<?= base_url('user/store') ?>" method="POST">
+    <form action="<?= base_url('pegawai/store') ?>" method="POST">
 
       <label for="text">NIP Pegawai</label> <br>
       <input type="text" name="nipPegawai" placeholder="NIP Pegawai">

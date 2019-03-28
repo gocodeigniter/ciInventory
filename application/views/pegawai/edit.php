@@ -6,7 +6,7 @@
   </head>
   <body>
 
-    <form action="<?= base_url('user/update/' . $pegawai['id_pegawai']) ?>" method="POST">
+    <form action="<?= base_url('pegawai/update/' . $pegawai['id_pegawai']) ?>" method="POST">
 
       <label for="text">NIP Pegawai</label> <br>
       <input type="text" name="nipPegawai" placeholder="NIP Pegawai" value="<?= $pegawai['nip'] ?>">
@@ -20,7 +20,7 @@
       <textarea name="alamatPegawai" rows="8" cols="80"><?= $pegawai['alamat'] ?></textarea>
       <br><br>
 
-      <input type="hidden" name="namaPegawaiLama" value="<?= $pegawai['nip'] ?>">
+      <input type="hidden" name="nipPegawaiLama" value="<?= $pegawai['nip'] ?>">
 
       <button type="submit" name="button">Kirim</button>
 

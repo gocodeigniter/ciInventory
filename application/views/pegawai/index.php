@@ -6,7 +6,7 @@
   </head>
   <body>
 
-    <a href="<?= base_url('user/create') ?>">Buat Pegawai Baru</a>
+    <a href="<?= base_url('pegawai/create') ?>">Buat Pegawai Baru</a>
 
     <h3>Daftar Pegawai</h3>
 
@@ -18,8 +18,8 @@
       <?php foreach( $pegawai as $row ) : ?>
         <li>
           <?= $row['nip'] . ' - ' . $row['nama_pegawai']; ?>
-          <form action="<?= base_url('user/delete/' . $row['id_pegawai']) ?>" method="post">
-            <a href="<?= base_url('user/edit/' . $row['id_pegawai']); ?>">Ubah</a> |
+          <form action="<?= base_url('pegawai/delete/' . $row['id_pegawai']) ?>" method="post">
+            <a href="<?= base_url('pegawai/edit/' . $row['id_pegawai']); ?>">Ubah</a> |
             <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button>
           </form>
         </li> <br>

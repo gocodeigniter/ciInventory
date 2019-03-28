@@ -1,5 +1,5 @@
 <?php
-class Users_model extends CI_Model {
+class Pegawai_model extends CI_Model {
 
   // Declaration Constants
   const TABLE_NAME = "pegawai";
@@ -37,7 +37,7 @@ class Users_model extends CI_Model {
     if( count( $checkData ) > 0 ) {
       $this->session->set_flashdata('msg', 'Gagal! NIP yang dimasukkan sudah tersedia!');
 
-      redirect('/user');
+      redirect('/pegawai');
     }
 
     $data = array(
@@ -56,11 +56,13 @@ class Users_model extends CI_Model {
     $namaPegawai = $this->input->post('namaPegawai');
     $alamatPegawai = $this->input->post('alamatPegawai');
 
-    $checkData = $this->findByNIP( $nipPegawai );
-    if( count( $checkData ) > 0 ) {
-      $this->session->set_flashdata('msg', 'Gagal! NIP yang dimasukkan sudah tersedia!');
+    if( $nipPegawai != $nipPegawaiLama ) {
+      $checkData = $this->findByNIP( $nipPegawai );
+      if( count( $checkData ) > 0 ) {
+        $this->session->set_flashdata('msg', 'Gagal! NIP yang dimasukkan sudah tersedia!');
 
-      redirect('/user');
+        redirect('/pegawai');
+      }
     }
 
     $data = array(
