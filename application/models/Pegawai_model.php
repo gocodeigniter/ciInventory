@@ -27,6 +27,15 @@ class Pegawai_model extends CI_Model {
     return $query->row_array();
   }
 
+  public function findByKeyword($keyword)
+  {
+    $this->db->like('nip', $keyword, 'both');
+    $this->db->or_like('nama_pegawai', $keyword, 'both');
+    $query = $this->db->get(self::TABLE_NAME);
+
+    return $query->result_array();
+  }
+
   public function create()
   {
     $nipPegawai = $this->input->post('nipPegawai');

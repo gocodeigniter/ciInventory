@@ -9,11 +9,11 @@
     <form action="<?= base_url('pegawai/update/' . $pegawai['id_pegawai']) ?>" method="POST">
 
       <label for="text">NIP Pegawai</label> <br>
-      <input type="text" name="nipPegawai" placeholder="NIP Pegawai" value="<?= $pegawai['nip'] ?>">
+      <input type="text" name="nipPegawai" placeholder="NIP Pegawai" value="<?= $pegawai['nip'] ?>" autocomplete="off">
       <br><br>
 
       <label for="text">Nama Pegawai</label> <br>
-      <input type="text" name="namaPegawai" placeholder="Nama Pegawai" value="<?= $pegawai['nama_pegawai'] ?>">
+      <input type="text" name="namaPegawai" placeholder="Nama Pegawai" value="<?= $pegawai['nama_pegawai'] ?>" autocomplete="off">
       <br><br>
 
       <label for="text">Alamat Pegawai</label> <br>

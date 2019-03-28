@@ -15,6 +15,11 @@ class Pegawai extends CI_Controller {
 	{
 		$data['pegawai'] = $this->pegawai_model->all();
 
+		$keyword = $this->input->get('keyword');
+		if( $keyword != null ) {
+			$data['pegawai'] = $this->pegawai_model->findByKeyword($keyword);
+		}
+
 		$this->load->view('pegawai/index', $data);
 	}
 

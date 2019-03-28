@@ -10,6 +10,10 @@
 
     <h3>Daftar Pegawai</h3>
 
+    <form action="<?= base_url('pegawai/index') ?>" method="GET">
+      <input type="text" name="keyword" placeholder="Ketikan NIP atau Nama Pegawai" autocomplete="off">
+    </form>
+
     <?php if( $this->session->flashdata('msg') ) : ?>
       <?= $this->session->flashdata('msg'); ?>
     <?php endif; ?>

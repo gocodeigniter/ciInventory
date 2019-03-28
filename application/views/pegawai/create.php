@@ -9,11 +9,11 @@
     <form action="<?= base_url('pegawai/store') ?>" method="POST">
 
       <label for="text">NIP Pegawai</label> <br>
-      <input type="text" name="nipPegawai" placeholder="NIP Pegawai">
+      <input type="text" name="nipPegawai" placeholder="NIP Pegawai" autocomplete="off">
       <br><br>
 
       <label for="text">Nama Pegawai</label> <br>
-      <input type="text" name="namaPegawai" placeholder="Nama Pegawai">
+      <input type="text" name="namaPegawai" placeholder="Nama Pegawai" autocomplete="off">
       <br><br>
 
       <label for="text">Alamat Pegawai</label> <br>
