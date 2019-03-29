@@ -51,7 +51,7 @@ class Pegawai_model extends CI_Model {
 
     $data = array(
       'nip' => $nipPegawai,
-      'nama_pegawai' => $namaPegawai,
+      'nama_pegawai' => ucwords( $namaPegawai ),
       'alamat' => $alamatPegawai
     );
 
@@ -76,7 +76,7 @@ class Pegawai_model extends CI_Model {
 
     $data = array(
       'nip' => $nipPegawai,
-      'nama_pegawai' => $namaPegawai,
+      'nama_pegawai' => ucwords( $namaPegawai ),
       'alamat' => $alamatPegawai
     );
 

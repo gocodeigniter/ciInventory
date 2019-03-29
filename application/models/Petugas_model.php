@@ -58,8 +58,8 @@ class Petugas_model extends CI_Model {
     }
 
     $data = array(
-      'nama_petugas' => $namaPetugas,
-      'username' => $usernamePetugas,
+      'nama_petugas' => ucwords( $namaPetugas ),
+      'username' => strtolower( $usernamePetugas ),
       'password' => password_hash($passwordPetugas, PASSWORD_BCRYPT),
       'id_level' => $levelPetugas
     );
@@ -72,9 +72,26 @@ class Petugas_model extends CI_Model {
     $namaPetugas = $this->input->post('namaPetugas');
     $usernamePetugas = $this->input->post('usernamePetugas');
     $usernamePetugasLama = $this->input->post('usernamePetugasLama');
+    $ubahPasswordPetugas = $this->input->post('ubahPasswordPetugas');
     $passwordPetugas = $this->input->post('passwordPetugas');
+    $passwordPetugasLama = $this->input->post('passwordPetugasLama');
     $confPasswordPetugas = $this->input->post('confPasswordPetugas');
     $levelPetugas = $this->input->post('levelPetugas');
+
+    $petugas = $this->findByUsername( $usernamePetugasLama );
+    if( $ubahPasswordPetugas == "on" ) {
+      if( password_verify($passwordPetugasLama, $petugas['password']) ) {
+        if( $passwordPetugas != $confPasswordPetugas ) {
+          $this->session->set_flashdata('msg', 'Gagal! Konfirmasi password yang dimasukkan tidak sesuai!');
+
+          redirect('/petugas');
+        }
+      } else {
+        $this->session->set_flashdata('msg', 'Gagal! Password lama yang dimasukkan salah!');
+
+        redirect('/petugas');
+      }
+    }
 
     if( $usernamePetugas != $usernamePetugasLama ) {
       $checkData = $this->findByUsername( $usernamePetugas );
@@ -86,8 +103,8 @@ class Petugas_model extends CI_Model {
     }
 
     $data = array(
-      'nama_petugas' => $namaPetugas,
-      'username' => $usernamePetugas,
+      'nama_petugas' => ucwords( $namaPetugas ),
+      'username' => strtolower( $usernamePetugas ),
       'password' => password_hash($passwordPetugas, PASSWORD_BCRYPT),
       'id_level' => $levelPetugas
     );

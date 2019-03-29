@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Global Routes
-$route['default_controller'] = 'pegawai';
+$route['default_controller'] = 'petugas';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

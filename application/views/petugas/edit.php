@@ -25,11 +25,48 @@
       </select>
       <br><br>
 
+      <label for="text">
+        <input id="checkbox" type="checkbox" name="ubahPasswordPetugas">
+        Ubah Password Petugas
+      </label> <br><br>
+
+      <label for="text">Password Lama Petugas</label> <br>
+      <input id="passwordPetugasLama" type="password" name="passwordPetugasLama" placeholder="Password Lama Petugas" disabled>
+      <br><br>
+
+      <label for="text">Password Petugas</label> <br>
+      <input id="passwordPetugas" type="password" name="passwordPetugas" placeholder="Password Petugas" disabled>
+      <br><br>
+
+      <label for="text">Konfirmasi Password Petugas</label> <br>
+      <input id="confPasswordPetugas" type="password" name="confPasswordPetugas" placeholder="Konfirmasi Password Petugas" disabled>
+      <br><br>
+
       <input type="hidden" name="usernamePetugasLama" value="<?= $petugas['username'] ?>">
 
       <button type="submit" name="button">Kirim</button>
 
     </form>
 
+  <script type="text/javascript">
+
+    var checkbox = document.getElementById('checkbox');
+    var passwordPetugas = document.getElementById('passwordPetugas');
+    var passwordPetugasLama = document.getElementById('passwordPetugasLama');
+    var confPasswordPetugas = document.getElementById('confPasswordPetugas');
+
+    checkbox.onchange = function() {
+      if( this.checked ) {
+        passwordPetugas.removeAttribute('disabled');
+        passwordPetugasLama.removeAttribute('disabled');
+        confPasswordPetugas.removeAttribute('disabled');
+      } else {
+        passwordPetugas.setAttribute('disabled', '');
+        passwordPetugasLama.setAttribute('disabled', '');
+        confPasswordPetugas.setAttribute('disabled', '');
+      }
+    };
+
+  </script>
   </body>
 </html>
