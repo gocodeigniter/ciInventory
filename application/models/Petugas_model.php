@@ -1,0 +1,105 @@
+<?php
+class Petugas_model extends CI_Model {
+
+  // Declaration Constants
+  const TABLE_NAME = "petugas";
+
+  public function __construct()
+  {
+    $this->load->database();
+  }
+
+  public function all()
+  {
+    $query = $this->db->get(self::TABLE_NAME);
+    return $query->result_array();
+  }
+
+  public function find($id)
+  {
+    $query = $this->db->get_where(self::TABLE_NAME, array('id_petugas' => $id));
+    return $query->row_array();
+  }
+
+  public function findByUsername($username)
+  {
+    $query = $this->db->get_where(self::TABLE_NAME, array('username' => $username));
+    return $query->row_array();
+  }
+
+  public function findByKeyword($keyword)
+  {
+    $this->db->like('nama_petugas', $keyword, 'both');
+    $this->db->or_like('username', $keyword, 'both');
+    $query = $this->db->get(self::TABLE_NAME);
+
+    return $query->result_array();
+  }
+
+  public function create()
+  {
+    $namaPetugas = $this->input->post('namaPetugas');
+    $usernamePetugas = $this->input->post('usernamePetugas');
+    $passwordPetugas = $this->input->post('passwordPetugas');
+    $confPasswordPetugas = $this->input->post('confPasswordPetugas');
+    $levelPetugas = $this->input->post('levelPetugas');
+
+    $checkData = $this->findByUsername( $usernamePetugas );
+    if( count( $checkData ) > 0 ) {
+      $this->session->set_flashdata('msg', 'Gagal! Username yang dimasukkan sudah tersedia!');
+
+      redirect('/petugas');
+    }
+
+    if( $passwordPetugas != $confPasswordPetugas ) {
+      $this->session->set_flashdata('msg', 'Gagal! Konfirmasi password yang dimasukkan tidak sesuai!');
+
+      redirect('/petugas/create');
+    }
+
+    $data = array(
+      'nama_petugas' => $namaPetugas,
+      'username' => $usernamePetugas,
+      'password' => password_hash($passwordPetugas, PASSWORD_BCRYPT),
+      'id_level' => $levelPetugas
+    );
+
+    return $this->db->insert(self::TABLE_NAME, $data);
+  }
+
+  public function update($id)
+  {
+    $namaPetugas = $this->input->post('namaPetugas');
+    $usernamePetugas = $this->input->post('usernamePetugas');
+    $usernamePetugasLama = $this->input->post('usernamePetugasLama');
+    $passwordPetugas = $this->input->post('passwordPetugas');
+    $confPasswordPetugas = $this->input->post('confPasswordPetugas');
+    $levelPetugas = $this->input->post('levelPetugas');
+
+    if( $usernamePetugas != $usernamePetugasLama ) {
+      $checkData = $this->findByUsername( $usernamePetugas );
+      if( count( $checkData ) > 0 ) {
+        $this->session->set_flashdata('msg', 'Gagal! Username yang dimasukkan sudah tersedia!');
+
+        redirect('/petugas');
+      }
+    }
+
+    $data = array(
+      'nama_petugas' => $namaPetugas,
+      'username' => $usernamePetugas,
+      'password' => password_hash($passwordPetugas, PASSWORD_BCRYPT),
+      'id_level' => $levelPetugas
+    );
+
+    $this->db->where('id_petugas', $id);
+    return $this->db->update(self::TABLE_NAME, $data);
+  }
+
+  public function destroy($id)
+  {
+    $this->db->where('id_petugas', $id);
+    return $this->db->delete(self::TABLE_NAME);
+  }
+
+}
