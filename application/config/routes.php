@@ -21,3 +21,11 @@ $route['pegawai/store'] = 'pegawai/store';
 $route['pegawai/edit/(:any)'] = 'pegawai/edit/$1';
 $route['pegawai/update/(:any)'] = 'pegawai/update/$1';
 $route['pegawai/delete/(:any)'] = 'pegawai/delete/$1';
+
+// Inventaris Routes
+$route['inventaris/index'] = 'inventaris/index';
+$route['inventaris/create'] = 'inventaris/create';
+$route['inventaris/store'] = 'inventaris/store';
+$route['inventaris/edit/(:any)'] = 'inventaris/edit/$1';
+$route['inventaris/update/(:any)'] = 'inventaris/update/$1';
+$route['inventaris/delete/(:any)'] = 'inventaris/delete/$1';
