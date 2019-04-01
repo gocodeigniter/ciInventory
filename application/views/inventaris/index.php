@@ -18,17 +18,37 @@
       <?= $this->session->flashdata('msg'); ?>
     <?php endif; ?>
 
-    <ol>
-      <?php foreach( $inventaris as $row ) : ?>
-        <li>
-          <?= $row['nama'] . ' - ' . $row['kondisi'] . ' - ' . date('d M Y H:i:s', strtotime( $row['tanggal_register'] ) ); ?>
-          <form action="<?= base_url('inventaris/delete/' . $row['id_inventaris']) ?>" method="post">
-            <a href="<?= base_url('inventaris/edit/' . $row['id_inventaris']); ?>">Ubah</a> |
-            <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button>
-          </form>
-        </li> <br>
-      <?php endforeach; ?>
-    </ol>
+    <br>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+      <thead>
+        <tr>
+          <td>No</td>
+          <td>Kode</td>
+          <td>Nama</td>
+          <td>Kondisi</td>
+          <td>Jumlah</td>
+          <td>Aksi</td>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach( $inventaris as $i => $row ) : ?>
+          <tr>
+            <td><?= $i + 1 ?></td>
+            <td><?= $row['kode_inventaris'] ?></td>
+            <td><?= $row['nama'] ?></td>
+            <td><?= $row['kondisi'] ?></td>
+            <td><?= $row['jumlah'] ?></td>
+            <td>
+              <form action="<?= base_url('inventaris/delete/' . $row['id_inventaris']) ?>" method="post">
+                <a href="<?= base_url('inventaris/edit/' . $row['id_inventaris']); ?>">Ubah</a> |
+                <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
 
   </body>
 </html>

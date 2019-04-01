@@ -38,15 +38,15 @@ class Inventaris_model extends CI_Model {
     $kondisiInventaris = $this->input->post('kondisiInventaris');
     $keteranganInventaris = $this->input->post('keteranganInventaris');
     $jumlahInventaris = $this->input->post('jumlahInventaris');
-    $kodeInventaris = substr(md5(mt_rand()), 0, 10);
+    $kodeInventaris = substr(md5(mt_rand()), 0, 5);
     $tanggalRegister = date('Y-m-d H:i:s');
 
     $data = array(
-      'nama' => $namaInventaris,
+      'nama' => ucwords( $namaInventaris ),
       'kondisi' => $kondisiInventaris,
       'keterangan' => $keteranganInventaris,
       'jumlah' => $jumlahInventaris,
-      'kode_inventaris' => $kodeInventaris,
+      'kode_inventaris' => strtoupper( $kodeInventaris ),
       'tanggal_register' => $tanggalRegister,
       'id_petugas' => $petugasInventaris,
       'id_jenis' => $jenisInventaris,
@@ -68,7 +68,7 @@ class Inventaris_model extends CI_Model {
     $tanggalRegister = date('Y-m-d H:i:s');
 
     $data = array(
-      'nama' => $namaInventaris,
+      'nama' => ucwords( $namaInventaris ),
       'kondisi' => $kondisiInventaris,
       'keterangan' => $keteranganInventaris,
       'jumlah' => $jumlahInventaris,

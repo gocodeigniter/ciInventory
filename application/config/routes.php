@@ -29,3 +29,16 @@ $route['inventaris/store'] = 'inventaris/store';
 $route['inventaris/edit/(:any)'] = 'inventaris/edit/$1';
 $route['inventaris/update/(:any)'] = 'inventaris/update/$1';
 $route['inventaris/delete/(:any)'] = 'inventaris/delete/$1';
+
+// Peminjaman Routes
+$route['peminjaman/index'] = 'peminjaman/index';
+$route['peminjaman/create'] = 'peminjaman/create';
+$route['peminjaman/store'] = 'peminjaman/store';
+$route['peminjaman/edit/(:any)'] = 'peminjaman/edit/$1';
+$route['peminjaman/update/(:any)'] = 'peminjaman/update/$1';
+$route['peminjaman/delete/(:any)'] = 'peminjaman/delete/$1';
+
+// Detail Routes
+$route['detail/index'] = 'detail/index';
+$route['detail/create/(:any)'] = 'detail/create/$1';
+$route['detail/store/(:any)'] = 'detail/store/$1';
