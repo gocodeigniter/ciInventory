@@ -9,9 +9,12 @@ class Pegawai_model extends CI_Model {
     $this->load->database();
   }
 
-  public function all()
+  public function all($number = NULL, $offset = NULL)
   {
+    $this->db->limit($number, $offset);
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
     $query = $this->db->get(self::TABLE_NAME);
+
     return $query->result_array();
   }
 
@@ -31,9 +34,16 @@ class Pegawai_model extends CI_Model {
   {
     $this->db->like('nip', $keyword, 'both');
     $this->db->or_like('nama_pegawai', $keyword, 'both');
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
     $query = $this->db->get(self::TABLE_NAME);
 
     return $query->result_array();
+  }
+
+  public function countData()
+  {
+    return count( $this->all() );
   }
 
   public function create()

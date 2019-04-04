@@ -9,15 +9,32 @@ class Detail extends CI_Controller {
     $this->load->model(
 			array('inventaris_model', 'detail_model')
 		);
-    $this->load->helper('url_helper');
-    $this->load->library('session');
+		$this->load->helper(
+			array( 'url', 'url_helper' )
+		);
+		$this->load->library(
+			array( 'pagination', 'session' )
+		);
   }
 
 	public function index()
 	{
-		$i = 0;
+		$uri_segment = $this->uri->segment(3);
+		$num_rows = $this->detail_model->countData();
+
+		$config['base_url'] = base_url() . 'detail/index/';
+		$config['total_rows'] = $num_rows;
+		$config['per_page'] = 10;
+
+		$this->pagination->initialize($config);
+
 		$dataDetail = [];
-		$detailPeminjaman = $this->detail_model->all();
+		$detailPeminjaman = $this->detail_model->all($config['per_page'], $uri_segment);
+
+		$keyword = $this->input->get('keyword');
+		if( $keyword != null ) {
+			$detailPeminjaman = $this->detail_model->findByKeyword($keyword);
+		}
 
 		// Add Data Peminjaman into Array
 		foreach( $detailPeminjaman as $key => $row ) {
@@ -55,10 +72,11 @@ class Detail extends CI_Controller {
 			}
 		}
 
-		$data['i'] = $i + 1;
 		$data['peminjaman'] = $dataDetail;
 
+		$this->load->view('layout/header');
 		$this->load->view('detail/index', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function create($id)
@@ -66,7 +84,9 @@ class Detail extends CI_Controller {
 		$data['id_peminjaman'] = $id;
 		$data['inventaris'] = $this->inventaris_model->all();
 
+		$this->load->view('layout/header');
 		$this->load->view('detail/create', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function store($id)
@@ -82,7 +102,9 @@ class Detail extends CI_Controller {
 		$data['pegawai'] = $this->pegawai_model->all();
 		$data['peminjaman'] = $this->peminjaman_model->find($id);
 
+		$this->load->view('layout/header');
 		$this->load->view('peminjaman/edit', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function update($id)

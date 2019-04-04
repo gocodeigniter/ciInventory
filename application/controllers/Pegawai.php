@@ -7,25 +7,42 @@ class Pegawai extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('pegawai_model');
-    $this->load->helper('url_helper');
-    $this->load->library('session');
+		$this->load->helper(
+			array( 'url', 'url_helper' )
+		);
+		$this->load->library(
+			array( 'pagination', 'session' )
+		);
   }
 
 	public function index()
 	{
-		$data['pegawai'] = $this->pegawai_model->all();
+		$uri_segment = $this->uri->segment(3);
+		$num_rows = $this->pegawai_model->countData();
+
+		$config['base_url'] = base_url() . 'pegawai/index/';
+		$config['total_rows'] = $num_rows;
+		$config['per_page'] = 10;
+
+		$this->pagination->initialize($config);
+
+		$data['pegawai'] = $this->pegawai_model->all($config['per_page'], $uri_segment);
 
 		$keyword = $this->input->get('keyword');
 		if( $keyword != null ) {
 			$data['pegawai'] = $this->pegawai_model->findByKeyword($keyword);
 		}
 
+		$this->load->view('layout/header');
 		$this->load->view('pegawai/index', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function create()
 	{
+		$this->load->view('layout/header');
 		$this->load->view('pegawai/create');
+		$this->load->view('layout/footer');
 	}
 
 	public function store()
@@ -40,7 +57,9 @@ class Pegawai extends CI_Controller {
 	{
 		$data['pegawai'] = $this->pegawai_model->find($id);
 
+		$this->load->view('layout/header');
 		$this->load->view('pegawai/edit', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function update($id)

@@ -9,27 +9,44 @@ class Peminjaman extends CI_Controller {
     $this->load->model(
 			array('peminjaman_model', 'pegawai_model', 'inventaris_model')
 		);
-    $this->load->helper('url_helper');
-    $this->load->library('session');
+		$this->load->helper(
+			array( 'url', 'url_helper' )
+		);
+    $this->load->library(
+			array( 'pagination', 'session' )
+		);
   }
 
 	public function index()
 	{
-		$data['peminjaman'] = $this->peminjaman_model->hasPeminjaman();
+		$uri_segment = $this->uri->segment(3);
+		$num_rows = $this->peminjaman_model->countData();
+
+		$config['base_url'] = base_url() . 'peminjaman/index/';
+		$config['total_rows'] = $num_rows;
+		$config['per_page'] = 10;
+
+		$this->pagination->initialize($config);
+
+		$data['peminjaman'] = $this->peminjaman_model->all($config['per_page'], $uri_segment);
 
 		$keyword = $this->input->get('keyword');
 		if( $keyword != null ) {
 			$data['peminjaman'] = $this->peminjaman_model->findByKeyword($keyword);
 		}
 
+		$this->load->view('layout/header');
 		$this->load->view('peminjaman/index', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function create()
 	{
 		$data['pegawai'] = $this->pegawai_model->all();
 
+		$this->load->view('layout/header');
 		$this->load->view('peminjaman/create', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function store()
@@ -45,7 +62,9 @@ class Peminjaman extends CI_Controller {
 		$data['pegawai'] = $this->pegawai_model->all();
 		$data['peminjaman'] = $this->peminjaman_model->find($id);
 
+		$this->load->view('layout/header');
 		$this->load->view('peminjaman/edit', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function update($id)

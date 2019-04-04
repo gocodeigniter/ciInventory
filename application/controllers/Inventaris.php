@@ -9,20 +9,35 @@ class Inventaris extends CI_Controller {
     $this->load->model(
 			array('inventaris_model', 'petugas_model', 'ruang_model', 'jenis_model')
 		);
-    $this->load->helper('url_helper');
-    $this->load->library('session');
+		$this->load->helper(
+			array( 'url', 'url_helper' )
+		);
+    $this->load->library(
+			array( 'pagination', 'session' )
+		);
   }
 
 	public function index()
 	{
-		$data['inventaris'] = $this->inventaris_model->all();
+		$uri_segment = $this->uri->segment(3);
+		$num_rows = $this->inventaris_model->countData();
+
+		$config['base_url'] = base_url() . 'inventaris/index/';
+		$config['total_rows'] = $num_rows;
+		$config['per_page'] = 10;
+
+		$this->pagination->initialize($config);
+
+		$data['inventaris'] = $this->inventaris_model->all($config['per_page'], $uri_segment);
 
 		$keyword = $this->input->get('keyword');
 		if( $keyword != null ) {
 			$data['inventaris'] = $this->inventaris_model->findByKeyword($keyword);
 		}
 
+		$this->load->view('layout/header');
 		$this->load->view('inventaris/index', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function create()
@@ -31,7 +46,9 @@ class Inventaris extends CI_Controller {
 		$data['jenis'] = $this->jenis_model->all();
 		$data['ruang'] = $this->ruang_model->all();
 
+		$this->load->view('layout/header');
 		$this->load->view('inventaris/create', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function store()
@@ -49,7 +66,9 @@ class Inventaris extends CI_Controller {
 		$data['ruang'] = $this->ruang_model->all();
 		$data['inventaris'] = $this->inventaris_model->find($id);
 
+		$this->load->view('layout/header');
 		$this->load->view('inventaris/edit', $data);
+		$this->load->view('layout/footer');
 	}
 
 	public function update($id)

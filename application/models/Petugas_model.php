@@ -16,6 +16,7 @@ class Petugas_model extends CI_Model {
     $this->db->join('level', 'petugas.id_level = level.id_level');
     $this->db->limit($number, $offset);
 
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
     $query = $this->db->get();
 
     return $query->result_array();
@@ -35,12 +36,14 @@ class Petugas_model extends CI_Model {
 
   public function findByKeyword($keyword)
   {
-    $this->db->like('nama_petugas', $keyword, 'both');
-    $this->db->or_like('username', $keyword, 'both');
     $this->db->select('petugas.*, level.nama_level');
     $this->db->from('petugas');
     $this->db->join('level', 'petugas.id_level = level.id_level');
 
+    $this->db->like('nama_petugas', $keyword, 'both');
+    $this->db->or_like('username', $keyword, 'both');
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
     $query = $this->db->get();
 
     return $query->result_array();

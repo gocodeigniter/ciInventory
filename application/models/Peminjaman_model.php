@@ -9,9 +9,16 @@ class Peminjaman_model extends CI_Model {
     $this->load->database();
   }
 
-  public function all()
+  public function all($number = NULL, $offset = NULL)
   {
-    $query = $this->db->get(self::TABLE_NAME);
+    $this->db->select('pegawai.nama_pegawai, peminjaman.*');
+    $this->db->from('peminjaman');
+    $this->db->join('pegawai', 'pegawai.id_pegawai = peminjaman.id_pegawai');
+    $this->db->limit($number, $offset);
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get();
+
     return $query->result_array();
   }
 
@@ -29,15 +36,10 @@ class Peminjaman_model extends CI_Model {
     return $query->result_array();
   }
 
-  public function hasPeminjaman()
+  public function countData()
   {
-    $this->db->select('pegawai.nama_pegawai, peminjaman.*');
-    $this->db->from('peminjaman');
-    $this->db->join('pegawai', 'pegawai.id_pegawai = peminjaman.id_pegawai');
-    $query = $this->db->get();
-
-    return $query->result_array();
-  }
+    return count( $this->all() );
+}
 
   public function create()
   {

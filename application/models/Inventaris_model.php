@@ -9,9 +9,20 @@ class Inventaris_model extends CI_Model {
     $this->load->database();
   }
 
-  public function all()
+  public function all($number = NULL, $offset = NULL)
   {
-    $query = $this->db->get(self::TABLE_NAME);
+    $this->db->select(
+      'inventaris.*, petugas.nama_petugas, jenis.nama_jenis, ruang.nama_ruang'
+    );
+    $this->db->from('inventaris');
+    $this->db->join('petugas', 'inventaris.id_petugas = petugas.id_petugas');
+    $this->db->join('jenis', 'inventaris.id_jenis = jenis.id_jenis');
+    $this->db->join('ruang', 'inventaris.id_ruang = ruang.id_ruang');
+    $this->db->limit($number, $offset);
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get();
+
     return $query->result_array();
   }
 
@@ -23,10 +34,26 @@ class Inventaris_model extends CI_Model {
 
   public function findByKeyword($keyword)
   {
+    $this->db->select(
+      'inventaris.*, petugas.nama_petugas, jenis.nama_jenis, ruang.nama_ruang'
+    );
+    $this->db->from('inventaris');
+    $this->db->join('petugas', 'inventaris.id_petugas = petugas.id_petugas');
+    $this->db->join('jenis', 'inventaris.id_jenis = jenis.id_jenis');
+    $this->db->join('ruang', 'inventaris.id_ruang = ruang.id_ruang');
+
     $this->db->like('nama', $keyword, 'both');
-    $query = $this->db->get(self::TABLE_NAME);
+    $this->db->or_like('nama_petugas', $keyword, 'both');
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get();
 
     return $query->result_array();
+  }
+
+  public function countData()
+  {
+    return count( $this->all() );
   }
 
   public function create()

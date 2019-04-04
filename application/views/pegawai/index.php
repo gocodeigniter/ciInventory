@@ -1,34 +1,58 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Daftar Pegawai</title>
-  </head>
-  <body>
+<h3>Daftar Pegawai</h3>
 
-    <a href="<?= base_url('pegawai/create') ?>">Buat Pegawai Baru</a>
+<div class="left">
+  <form action="<?= base_url('pegawai/index') ?>" method="GET">
+    <input type="text" name="keyword" placeholder="Ketikan Username atau Nama Pegawai" autocomplete="off" size="35">
+    <button type="submit" name="button">Cari</button>
+  </form>
+</div>
+<div class="right">
+  <a href="<?= base_url('pegawai/create') ?>">Buat Pegawai Baru</a>
+</div>
+<div class="clear"></div>
 
-    <h3>Daftar Pegawai</h3>
+<br>
 
-    <form action="<?= base_url('pegawai/index') ?>" method="GET">
-      <input type="text" name="keyword" placeholder="Ketikan NIP atau Nama Pegawai" autocomplete="off">
-    </form>
+<?php if( $this->session->flashdata('msg') ) : ?>
+  <div class="alert">
+    <?= $this->session->flashdata('msg'); ?>
+  </div>
+<?php endif; ?>
 
-    <?php if( $this->session->flashdata('msg') ) : ?>
-      <?= $this->session->flashdata('msg'); ?>
-    <?php endif; ?>
+<table border="1" cellpadding="10" cellspacing="0">
+  <thead>
+    <th>No</th>
+    <th>NIP</th>
+    <th>Nama Pegawai</th>
+    <th>Alamat</th>
+    <th></th>
+  </thead>
+  <tbody>
 
-    <ol>
-      <?php foreach( $pegawai as $row ) : ?>
-        <li>
-          <?= $row['nip'] . ' - ' . $row['nama_pegawai']; ?>
+    <col width="4%">
+    <col width="15%">
+    <col width="25%">
+    <col width="40%">
+    <col width="16%">
+
+    <?php foreach( $pegawai as $i => $row ) : ?>
+      <tr>
+        <td class="text-center"><?= $i + 1 ?></td>
+        <td><?= $row['nip'] ?></td>
+        <td><?= $row['nama_pegawai'] ?></td>
+        <td><?= $row['alamat'] ?></td>
+        <td class="text-center">
           <form action="<?= base_url('pegawai/delete/' . $row['id_pegawai']) ?>" method="post">
             <a href="<?= base_url('pegawai/edit/' . $row['id_pegawai']); ?>">Ubah</a> |
             <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button>
           </form>
-        </li> <br>
-      <?php endforeach; ?>
-    </ol>
+        </td>
+      </tr>
+    <?php endforeach; ?>
 
-  </body>
-</html>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <?= $this->pagination->create_links(); ?>
+</div>

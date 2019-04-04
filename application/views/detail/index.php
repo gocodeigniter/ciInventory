@@ -1,73 +1,78 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Daftar Detail Peminjaman</title>
-  </head>
-  <body>
+<h3>Daftar Detail Peminjaman</h3>
 
-    <h3>Daftar Detail Peminjaman</h3>
+<div class="left">
+  <form action="<?= base_url('detail/index') ?>" method="GET">
+    <input type="text" name="keyword" placeholder="Ketikan Username atau Nama Petugas" autocomplete="off" size="35">
+    <button type="submit" name="button">Cari</button>
+  </form>
+</div>
+<div class="clear"></div>
 
-    <form action="<?= base_url('detail/index') ?>" method="GET">
-      <input type="text" name="keyword" placeholder="Ketikan Nama Detail Peminjaman" autocomplete="off">
-    </form>
+<br>
 
-    <?php if( $this->session->flashdata('msg') ) : ?>
-      <?= $this->session->flashdata('msg'); ?>
-    <?php endif; ?>
+<?php if( $this->session->flashdata('msg') ) : ?>
+  <div class="alert">
+    <?= $this->session->flashdata('msg'); ?>
+  </div>
+<?php endif; ?>
 
-    <br>
+<table border="1" cellpadding="10" cellspacing="0">
+  <thead>
+    <th>No</th>
+    <th>Nama Peminjam</th>
+    <th>Tanggal Pinjam</th>
+    <th>Tanggal Kembali</th>
+    <th>Status Peminjaman</th>
+    <th></th>
+  </thead>
+  <tbody>
 
-    <table border="1" cellpadding="10" cellspacing="0">
-      <thead>
-        <tr>
-          <td>No</td>
-          <td>Nama Peminjam</td>
-          <td>Tanggal Pinjam</td>
-          <td>Tanggal Kembali</td>
-          <td>Status Peminjaman</td>
-          <td>Aksi</td>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach( $peminjaman as $row ) : ?>
+    <col width="4%">
+    <col width="15%">
+    <col width="15%">
+    <col width="15%">
+    <col width="15%">
+
+    <?php foreach( $peminjaman as $i => $row ) : ?>
+      <tr>
+        <td class="text-center"><?= $i + 1 ?></td>
+        <td><?= $row['nama_pegawai'] ?></td>
+        <td class="text-center"><?= date('D, d M Y', strtotime( $row['tanggal_pinjam'] )) ?></td>
+        <td class="text-center"><?= date('D, d M Y', strtotime( $row['tanggal_kembali'] )) ?></td>
+        <td class="text-center"><?= $row['status_peminjaman'] ?></td>
+        <td class="text-center">
+          <form action="index.html" method="POST">
+            <button type="submit" name="button">Hapus</button> |
+            <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
+          </form>
+        </td>
+        <thead>
+          <th></th>
+          <th>Kode Barang</th>
+          <th colspan="2">Nama Barang</th>
+          <th>Jumlah Barang</th>
+          <th></th>
+        </thead>
+        <?php foreach( $row['detail'] as $col ) : ?>
           <tr>
-            <td><?= $i++ ?></td>
-            <td><?= $row['nama_pegawai'] ?></td>
-            <td><?= $row['tanggal_pinjam'] ?></td>
-            <td><?= $row['tanggal_kembali'] ?></td>
-            <td><?= $row['status_peminjaman'] ?></td>
-            <td>
+            <td></td>
+            <td class="text-center"><?= $col['kode_inventaris'] ?></td>
+            <td class="text-center" colspan="2"><?= $col['nama'] ?></td>
+            <td class="text-center"><?= $col['jumlah'] ?></td>
+            <td class="text-center">
               <form action="index.html" method="POST">
                 <button type="submit" name="button">Hapus</button> |
                 <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
               </form>
             </td>
-            <thead>
-              <th></th>
-              <th>Kode Barang</th>
-              <th colspan="2">Nama Barang</th>
-              <th>Jumlah Barang</th>
-              <th></th>
-            </thead>
-            <?php foreach( $row['detail'] as $col ) : ?>
-              <tr>
-                <td></td>
-                <td><?= $col['kode_inventaris'] ?></td>
-                <td colspan="2"><?= $col['nama'] ?></td>
-                <td><?= $col['jumlah'] ?></td>
-                <td>
-                  <form action="index.html" method="POST">
-                    <button type="submit" name="button">Hapus</button> |
-                    <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
-                  </form>
-                </td>
-              </tr>
-            <?php endforeach; ?>
           </tr>
         <?php endforeach; ?>
-      </tbody>
-    </table>
+      </tr>
+    <?php endforeach; ?>
 
-  </body>
-</html>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <?= $this->pagination->create_links(); ?>
+</div>

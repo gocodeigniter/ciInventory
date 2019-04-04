@@ -19,7 +19,6 @@ class Petugas extends CI_Controller {
 
 	public function index()
 	{
-		// Declarations
 		$uri_segment = $this->uri->segment(3);
 		$num_rows = $this->petugas_model->countData();
 

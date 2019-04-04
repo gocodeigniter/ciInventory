@@ -22,6 +22,7 @@
         <li> <a href="<?= base_url('petugas') ?>">Petugas</a> </li>
         <li> <a href="<?= base_url('pegawai') ?>">Pegawai</a> </li>
         <li> <a href="<?= base_url('inventaris') ?>">Inventaris</a> </li>
+        <li> <a href="<?= base_url('peminjaman') ?>">Peminjaman</a> </li>
         <li> <a href="<?= base_url('detail') ?>">Detail</a> </li>
       </ul>
     </div>

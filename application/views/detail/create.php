@@ -1,46 +1,42 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Daftar Barang</title>
-  </head>
-  <body>
+<h3>Daftar Barang</h3>
 
-    <h3>Daftar Barang</h3>
+<form action="<?= base_url('detail/store/' . $id_peminjaman) ?>" method="POST">
+  <table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+      <tr>
+        <td>
+          <input id="checkAll" type="checkbox" value="checkAll">
+        </td>
+        <th>No</th>
+        <th>Nama Barang</th>
+        <th>Kondisi Barang</th>
+        <th>Banyak Peminjaman</th>
+      </tr>
+    </thead>
+    <tbody>
 
-    <form action="<?= base_url('detail/store/' . $id_peminjaman) ?>" method="POST">
-      <table border="1" cellpadding="10" cellspacing="0">
-        <thead>
-          <tr>
-            <td>
-              <input type="checkbox" value="checkAll">
-            </td>
-            <td>No</td>
-            <td>Nama Barang</td>
-            <td>Kondisi Barang</td>
-            <td>Banyak Peminjaman</td>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach( $inventaris as $i => $row ) : ?>
-            <tr>
-              <td>
-                <input type="checkbox" name="invenPeminjaman[]" value="<?= $row['id_inventaris'] ?>">
-              </td>
-              <td><?= $i + 1 ?></td>
-              <td><?= $row['nama'] ?></td>
-              <td><?= $row['kondisi'] ?></td>
-              <td>
-                <input type="number" name="jumlahPeminjaman[]">
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-      <br>
+      <col width="4%">
+      <col width="4%">
+      <col width="40%">
+      <col width="15%">
 
-      <button type="submit">Selesai</button>
-    </form>
+      <?php foreach( $inventaris as $i => $row ) : ?>
+        <tr>
+          <td>
+            <input class="singleCheck" type="checkbox" name="invenPeminjaman[]" value="<?= $row['id_inventaris'] ?>">
+          </td>
+          <td class="text-center"><?= $i + 1 ?></td>
+          <td><?= $row['nama'] ?></td>
+          <td class="text-center"><?= $row['kondisi'] ?></td>
+          <td class="text-center">
+            <input class="form-control" type="number" name="jumlahPeminjaman[]" placeholder="0">
+          </td>
+        </tr>
+      <?php endforeach; ?>
 
-  </body>
-</html>
+    </tbody>
+  </table>
+  <br>
+
+  <button type="submit">Selesai</button>
+</form>
