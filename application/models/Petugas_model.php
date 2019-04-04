@@ -9,9 +9,15 @@ class Petugas_model extends CI_Model {
     $this->load->database();
   }
 
-  public function all()
+  public function all($number = NULL, $offset = NULL)
   {
-    $query = $this->db->get(self::TABLE_NAME);
+    $this->db->select('petugas.*, level.nama_level');
+    $this->db->from('petugas');
+    $this->db->join('level', 'petugas.id_level = level.id_level');
+    $this->db->limit($number, $offset);
+
+    $query = $this->db->get();
+
     return $query->result_array();
   }
 
@@ -31,9 +37,18 @@ class Petugas_model extends CI_Model {
   {
     $this->db->like('nama_petugas', $keyword, 'both');
     $this->db->or_like('username', $keyword, 'both');
-    $query = $this->db->get(self::TABLE_NAME);
+    $this->db->select('petugas.*, level.nama_level');
+    $this->db->from('petugas');
+    $this->db->join('level', 'petugas.id_level = level.id_level');
+
+    $query = $this->db->get();
 
     return $query->result_array();
+  }
+
+  public function countData()
+  {
+    return count( $this->all() );
   }
 
   public function create()

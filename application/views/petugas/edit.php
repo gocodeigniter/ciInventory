@@ -9,15 +9,15 @@
     <form action="<?= base_url('petugas/update/' . $petugas['id_petugas']) ?>" method="POST">
 
       <label for="text">Nama Petugas</label> <br>
-      <input type="text" name="namaPetugas" placeholder="Nama Petugas" autocomplete="off" value="<?= $petugas['nama_petugas'] ?>">
+      <input class="form-control" type="text" name="namaPetugas" placeholder="Nama Petugas" autocomplete="off" value="<?= $petugas['nama_petugas'] ?>">
       <br><br>
 
       <label for="text">Username Petugas</label> <br>
-      <input type="text" name="usernamePetugas" placeholder="Username Petugas" autocomplete="off" value="<?= $petugas['username'] ?>">
+      <input class="form-control" type="text" name="usernamePetugas" placeholder="Username Petugas" autocomplete="off" value="<?= $petugas['username'] ?>">
       <br><br>
 
       <label for="text">Level Petugas</label> <br>
-      <select name="levelPetugas">
+      <select class="form-control" name="levelPetugas">
         <option value="">-- Pilih Level --</option>
         <?php foreach( $level as $row ) : ?>
           <option value="<?= $row['id_level'] ?>" <?= $row['id_level'] == $petugas['id_level'] ? 'selected' : '' ?>><?= $row['nama_level'] ?></option>
@@ -31,15 +31,15 @@
       </label> <br><br>
 
       <label for="text">Password Lama Petugas</label> <br>
-      <input id="passwordPetugasLama" type="password" name="passwordPetugasLama" placeholder="Password Lama Petugas" disabled>
+      <input id="passwordPetugasLama" class="form-control" type="password" name="passwordPetugasLama" placeholder="Password Lama Petugas" disabled>
       <br><br>
 
       <label for="text">Password Petugas</label> <br>
-      <input id="passwordPetugas" type="password" name="passwordPetugas" placeholder="Password Petugas" disabled>
+      <input id="passwordPetugas" class="form-control" type="password" name="passwordPetugas" placeholder="Password Petugas" disabled>
       <br><br>
 
       <label for="text">Konfirmasi Password Petugas</label> <br>
-      <input id="confPasswordPetugas" type="password" name="confPasswordPetugas" placeholder="Konfirmasi Password Petugas" disabled>
+      <input id="confPasswordPetugas" class="form-control" type="password" name="confPasswordPetugas" placeholder="Konfirmasi Password Petugas" disabled>
       <br><br>
 
       <input type="hidden" name="usernamePetugasLama" value="<?= $petugas['username'] ?>">

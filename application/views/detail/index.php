@@ -6,8 +6,6 @@
   </head>
   <body>
 
-    <a href="<?= base_url('detail/create') ?>">Buat Detail Peminjaman Baru</a>
-
     <h3>Daftar Detail Peminjaman</h3>
 
     <form action="<?= base_url('detail/index') ?>" method="GET">
@@ -40,20 +38,30 @@
             <td><?= $row['tanggal_kembali'] ?></td>
             <td><?= $row['status_peminjaman'] ?></td>
             <td>
-              <a href="javascript:;">Ubah</a>
+              <form action="index.html" method="POST">
+                <button type="submit" name="button">Hapus</button> |
+                <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
+              </form>
             </td>
             <thead>
               <th></th>
               <th>Kode Barang</th>
               <th colspan="2">Nama Barang</th>
-              <th colspan="2">Jumlah Barang</th>
+              <th>Jumlah Barang</th>
+              <th></th>
             </thead>
             <?php foreach( $row['detail'] as $col ) : ?>
               <tr>
                 <td></td>
                 <td><?= $col['kode_inventaris'] ?></td>
                 <td colspan="2"><?= $col['nama'] ?></td>
-                <td colspan="2"><?= $col['jumlah'] ?></td>
+                <td><?= $col['jumlah'] ?></td>
+                <td>
+                  <form action="index.html" method="POST">
+                    <button type="submit" name="button">Hapus</button> |
+                    <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
+                  </form>
+                </td>
               </tr>
             <?php endforeach; ?>
           </tr>

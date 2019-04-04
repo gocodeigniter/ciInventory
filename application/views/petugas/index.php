@@ -1,34 +1,65 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Daftar Petugas</title>
-  </head>
-  <body>
+<h3>Daftar Petugas</h3>
 
-    <a href="<?= base_url('petugas/create') ?>">Buat Petugas Baru</a>
+<div class="left">
+  <form action="<?= base_url('petugas/index') ?>" method="GET">
+    <input type="text" name="keyword" placeholder="Ketikan Username atau Nama Petugas" autocomplete="off" size="35">
+    <button type="submit" name="button">Cari</button>
+  </form>
+</div>
+<div class="right">
+  <a href="<?= base_url('petugas/create') ?>">Buat Petugas Baru</a>
+</div>
+<div class="clear"></div>
 
-    <h3>Daftar Petugas</h3>
+<br>
 
-    <form action="<?= base_url('petugas/index') ?>" method="GET">
-      <input type="text" name="keyword" placeholder="Ketikan Username atau Nama Petugas" autocomplete="off">
-    </form>
+<?php if( $this->session->flashdata('msg') ) : ?>
+  <div class="alert">
+    <?= $this->session->flashdata('msg'); ?>
+  </div>
+<?php endif; ?>
 
-    <?php if( $this->session->flashdata('msg') ) : ?>
-      <?= $this->session->flashdata('msg'); ?>
-    <?php endif; ?>
+<table border="1" cellpadding="10" cellspacing="0">
+  <thead>
+    <th>No</th>
+    <th>Username</th>
+    <th>Nama Petugas</th>
+    <th>Level</th>
+    <th></th>
+  </thead>
+  <tbody>
 
-    <ol>
-      <?php foreach( $petugas as $row ) : ?>
-        <li>
-          <?= $row['username'] . ' - ' . $row['nama_petugas']; ?>
+    <col width="4%">
+    <col width="35%">
+    <col width="35">
+    <col width="10%">
+    <col width="16%">
+
+    <?php foreach( $petugas as $i => $row ) : ?>
+      <tr>
+        <td class="text-center"><?= $i + 1 ?></td>
+        <td><?= $row['username'] ?></td>
+        <td><?= $row['nama_petugas'] ?></td>
+        <td class="text-center"><?= $row['nama_level'] ?></td>
+        <td class="text-center">
           <form action="<?= base_url('petugas/delete/' . $row['id_petugas']) ?>" method="post">
             <a href="<?= base_url('petugas/edit/' . $row['id_petugas']); ?>">Ubah</a> |
             <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button>
           </form>
-        </li> <br>
-      <?php endforeach; ?>
-    </ol>
+        </td>
+      </tr>
+    <?php endforeach; ?>
 
-  </body>
-</html>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <?= $this->pagination->create_links(); ?>
+  <!-- <ul>
+    <li> <a href="#"> &laquo; </a> </li>
+    <li> <a href="#">1</a> </li>
+    <li> <a href="#">2</a> </li>
+    <li> <a href="#">3</a> </li>
+    <li> <a href="#"> &raquo; </a> </li>
+  </ul> -->
+</div>

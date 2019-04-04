@@ -31,12 +31,9 @@ class Peminjaman_model extends CI_Model {
 
   public function hasPeminjaman()
   {
-    // $this->db->where('users.username', $username);
     $this->db->select('pegawai.nama_pegawai, peminjaman.*');
     $this->db->from('peminjaman');
     $this->db->join('pegawai', 'pegawai.id_pegawai = peminjaman.id_pegawai');
-    // $this->db->like('pegawai.title', $keyword, 'both');
-    // $this->db->limit($number, $offset);
     $query = $this->db->get();
 
     return $query->result_array();
