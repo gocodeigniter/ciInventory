@@ -24,6 +24,14 @@
         <li> <a href="<?= base_url('inventaris') ?>">Inventaris</a> </li>
         <li> <a href="<?= base_url('peminjaman') ?>">Peminjaman</a> </li>
         <li> <a href="<?= base_url('detail') ?>">Detail</a> </li>
+        <li>
+          <a id="userNavbar" href="javascript:;">User</a>
+          <ul class="navbar-link-dropdown">
+            <li> <a href="javascript:;">Profil</a> </li>
+            <li> <a href="javascript:;">Pengaturan</a> </li>
+            <li> <a href="javascript:;">Keluar</a> </li>
+          </ul>
+        </li>
       </ul>
     </div>
     <div class="clear"></div>

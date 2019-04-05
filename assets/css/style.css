@@ -107,6 +107,38 @@ textarea.form-control {
   text-decoration: none;
 }
 
+.navbar .navbar-link .navbar-link-dropdown {
+  top: 65px;
+  right: 100px;
+  width: 140px;
+  display: none;
+  position: fixed;
+  padding: 10px 0px;
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  padding-inline-start: 0px !important;
+}
+
+.navbar .navbar-link .navbar-link-dropdown.show {
+  display: block;
+}
+
+.navbar .navbar-link .navbar-link-dropdown li {
+  margin: 0px;
+  width: 100%;
+  padding: 0px;
+  display: inline-block;
+}
+
+.navbar .navbar-link .navbar-link-dropdown li a {
+  padding: 8px 15px;
+  display: inline-block;
+}
+
+.navbar .navbar-link .navbar-link-dropdown li a:hover {
+  color: #000;
+}
+
 /* Pagination */
 .pagination {
   text-align: center;
