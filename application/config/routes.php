@@ -42,3 +42,5 @@ $route['peminjaman/delete/(:any)'] = 'peminjaman/delete/$1';
 $route['detail/index'] = 'detail/index';
 $route['detail/create/(:any)'] = 'detail/create/$1';
 $route['detail/store/(:any)'] = 'detail/store/$1';
+$route['detail/edit/(:any)'] = 'detail/edit/$1';
+$route['detail/update/(:any)'] = 'detail/update/$1';

@@ -71,6 +71,12 @@
   </tbody>
 </table>
 
+<?php if( count( $inventaris ) < 1 ) : ?>
+  <div class="alert">
+    Tidak Ada Data
+  </div>
+<?php endif; ?>
+
 <div class="pagination">
   <?= $this->pagination->create_links(); ?>
 </div>

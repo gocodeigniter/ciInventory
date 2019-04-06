@@ -99,11 +99,59 @@ class Detail extends CI_Controller {
 
 	public function edit($id)
 	{
-		$data['pegawai'] = $this->pegawai_model->all();
-		$data['peminjaman'] = $this->peminjaman_model->find($id);
+		$dataDetail = [];
+		$modelInventaris = $this->inventaris_model->all();
+		$modelDetailPinjam = $this->detail_model->findByIdPeminjaman($id);
+
+		// Add Data Peminjaman into Array
+		foreach( $modelInventaris as $key => $row ) {
+			$data = array(
+				'id_inventaris' => $row['id_inventaris'],
+				'id_petugas' => $row['id_petugas'],
+				'id_jenis' => $row['id_jenis'],
+				'id_ruang' => $row['id_ruang'],
+				'nama' => $row['nama'],
+				'kondisi' => $row['kondisi'],
+				'keterangan' => $row['keterangan'],
+				'jumlah' => $row['jumlah'],
+				'kode_inventaris' => $row['kode_inventaris'],
+				'tanggal_register' => $row['tanggal_register'],
+				'nama_petugas' => $row['nama_petugas'],
+				'nama_jenis' => $row['nama_jenis'],
+				'nama_ruang' => $row['nama_ruang'],
+				'data_user' => array()
+			);
+
+			// Remove Duplicates Data in Array
+			if( !in_array( $data, $dataDetail) ) {
+				$dataDetail[ $key ] = $data;
+			}
+		}
+
+		// Reindex Array
+		$dataDetail = array_values( $dataDetail );
+
+		foreach( $modelDetailPinjam as $row ) {
+			$detail = array(
+				'id_detail_pinjam' => $row['id_detail_pinjam'],
+				'id_peminjaman' => $row['id_peminjaman'],
+				'id_inventaris' => $row['id_inventaris'],
+				'jumlah' => $row['jumlah']
+			);
+
+			// Added Detail Data with Same Id
+			for( $x = 0; $x < count( $dataDetail ); $x++ ) {
+				if( $dataDetail[ $x ]['id_inventaris'] == $row['id_inventaris'] ) {
+					array_push( $dataDetail[ $x ]['data_user'], $detail );
+				}
+			}
+		}
+
+		$data['id_peminjaman'] = $id;
+		$data['inventaris'] = $dataDetail;
 
 		$this->load->view('layout/header');
-		$this->load->view('peminjaman/edit', $data);
+		$this->load->view('detail/edit', $data);
 		$this->load->view('layout/footer');
 	}
 

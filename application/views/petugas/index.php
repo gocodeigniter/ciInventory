@@ -53,6 +53,12 @@
   </tbody>
 </table>
 
+<?php if( count( $petugas ) < 1 ) : ?>
+  <div class="alert">
+    Tidak Ada Data
+  </div>
+<?php endif; ?>
+
 <div class="pagination">
   <?= $this->pagination->create_links(); ?>
 </div>

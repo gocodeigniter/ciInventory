@@ -42,6 +42,7 @@
         <td class="text-center"><?= $row['status_peminjaman'] ?></td>
         <td class="text-center">
           <form action="index.html" method="POST">
+            <a href="<?= base_url('detail/edit/' . $row['id_peminjaman']) ?>">Ubah</a> |
             <button type="submit" name="button">Hapus</button> |
             <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
           </form>
@@ -61,8 +62,7 @@
             <td class="text-center"><?= $col['jumlah'] ?></td>
             <td class="text-center">
               <form action="index.html" method="POST">
-                <button type="submit" name="button">Hapus</button> |
-                <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
+                <button type="submit" name="button">Hapus</button>
               </form>
             </td>
           </tr>
@@ -72,6 +72,12 @@
 
   </tbody>
 </table>
+
+<?php if( count( $peminjaman ) < 1 ) : ?>
+  <div class="alert">
+    Tidak Ada Data
+  </div>
+<?php endif; ?>
 
 <div class="pagination">
   <?= $this->pagination->create_links(); ?>

@@ -20,7 +20,7 @@
   <br><br>
 
   <label for="text">Tanggal Pengembalian</label> <br>
-  <input class="form-control" type="date" name="kembaliPeminjaman">
+  <input class="form-control" type="date" name="kembaliPeminjaman" max="<?= date('Y-m-d', time() + 60*60*24*10) ?>" min="<?= date('Y-m-d') ?>">
 
   <br><br>
 

@@ -33,6 +33,12 @@ class Detail_model extends CI_Model {
     return $query->row_array();
   }
 
+  function findByIdPeminjaman($id)
+  {
+    $query = $this->db->get_where(self::TABLE_NAME, array('id_peminjaman' => $id));
+    return $query->result_array();
+  }
+
   public function findByKeyword($keyword)
   {
     $this->db->select(
