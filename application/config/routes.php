@@ -44,3 +44,5 @@ $route['detail/create/(:any)'] = 'detail/create/$1';
 $route['detail/store/(:any)'] = 'detail/store/$1';
 $route['detail/edit/(:any)'] = 'detail/edit/$1';
 $route['detail/update/(:any)'] = 'detail/update/$1';
+$route['detail/delete/(:any)'] = 'detail/delete/$1';
+$route['detail/delete/single/(:any)'] = 'detail/delete_single/$1';

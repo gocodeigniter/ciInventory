@@ -38,10 +38,18 @@ $(document).ready(function() {
     }
   });
 
-  for( var i = 0; i < $('.singleCheck').length; i++ ) {
-    if( $('.singleCheck').eq( i ).prop('checked') == true ) {
-      $('.jumlahBarang').eq( i ).removeAttr('disabled');
-    }
-  }
+  // Sort Data Checked in First Table
+  var checkedData = $('input:checkbox:checked').map(function( i ) {
+    // Remove Disabled Attribute
+    $(this).parent().parent().find('.jumlahBarang').removeAttr('disabled');
+
+    // Remove Row Checked Checkbox
+    $(this).parent().parent().remove();
+
+    return '<tr>' + $(this).parent().parent().html() + '</tr>';
+  }).get();
+
+  // Replace Checked Data After Thead Table
+  $('thead').after(checkedData.join(","));
 
 });

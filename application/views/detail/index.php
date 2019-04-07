@@ -41,9 +41,9 @@
         <td class="text-center"><?= date('D, d M Y', strtotime( $row['tanggal_kembali'] )) ?></td>
         <td class="text-center"><?= $row['status_peminjaman'] ?></td>
         <td class="text-center">
-          <form action="index.html" method="POST">
+          <form action="<?= base_url('detail/delete/' . $row['id_peminjaman']) ?>" method="POST">
             <a href="<?= base_url('detail/edit/' . $row['id_peminjaman']) ?>">Ubah</a> |
-            <button type="submit" name="button">Hapus</button> |
+            <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button> |
             <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
           </form>
         </td>
@@ -61,8 +61,8 @@
             <td class="text-center" colspan="2"><?= $col['nama'] ?></td>
             <td class="text-center"><?= $col['jumlah'] ?></td>
             <td class="text-center">
-              <form action="index.html" method="POST">
-                <button type="submit" name="button">Hapus</button>
+              <form action="<?= base_url('detail/delete/single/' . $col['id_detail_pinjam']) ?>" method="POST">
+                <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button>
               </form>
             </td>
           </tr>

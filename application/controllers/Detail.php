@@ -59,6 +59,7 @@ class Detail extends CI_Controller {
 
 		foreach( $detailPeminjaman as $row ) {
 			$detail = array(
+				'id_detail_pinjam' => $row['id_detail_pinjam'],
 				'kode_inventaris' => $row['kode_inventaris'],
 				'nama' => $row['nama'],
 				'jumlah' => $row['jumlah'],
@@ -163,12 +164,20 @@ class Detail extends CI_Controller {
 		redirect('/peminjaman');
 	}
 
-	public function delete($id)
+	public function delete($id_peminjaman)
 	{
-		$this->peminjaman_model->destroy($id);
+		$this->detail_model->destroy($id_peminjaman);
 		$this->session->set_flashdata('msg', 'Berhasil Menghapus Inventaris!');
 
-		redirect('/peminjaman');
+		redirect('/detail');
+	}
+
+	public function delete_single($id_detail)
+	{
+		$this->detail_model->destroy_single($id_detail);
+		$this->session->set_flashdata('msg', 'Berhasil Menghapus Inventaris!');
+
+		redirect('/detail');
 	}
 
 }

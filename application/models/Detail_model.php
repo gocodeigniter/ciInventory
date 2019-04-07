@@ -12,8 +12,8 @@ class Detail_model extends CI_Model {
   public function all($number = NULL, $offset = NULL)
   {
     $this->db->select(
-      'pegawai.id_pegawai, pegawai.nama_pegawai, inventaris.nama, inventaris.kode_inventaris, detail_pinjam.id_peminjaman,
-      detail_pinjam.jumlah, peminjaman.tanggal_pinjam, peminjaman.tanggal_kembali, peminjaman.status_peminjaman'
+      'pegawai.id_pegawai, pegawai.nama_pegawai, inventaris.nama, inventaris.kode_inventaris, detail_pinjam.id_detail_pinjam,
+      detail_pinjam.id_peminjaman, detail_pinjam.jumlah, peminjaman.tanggal_pinjam, peminjaman.tanggal_kembali, peminjaman.status_peminjaman'
     );
     $this->db->from('detail_pinjam');
     $this->db->join('inventaris', 'detail_pinjam.id_inventaris = inventaris.id_inventaris');
@@ -42,8 +42,8 @@ class Detail_model extends CI_Model {
   public function findByKeyword($keyword)
   {
     $this->db->select(
-      'pegawai.id_pegawai, pegawai.nama_pegawai, inventaris.nama, inventaris.kode_inventaris, detail_pinjam.id_peminjaman,
-      detail_pinjam.jumlah, peminjaman.tanggal_pinjam, peminjaman.tanggal_kembali, peminjaman.status_peminjaman'
+      'pegawai.id_pegawai, pegawai.nama_pegawai, inventaris.nama, inventaris.kode_inventaris, detail_pinjam.id_detail_pinjam,
+      detail_pinjam.id_peminjaman, detail_pinjam.jumlah, peminjaman.tanggal_pinjam, peminjaman.tanggal_kembali, peminjaman.status_peminjaman'
     );
     $this->db->from('detail_pinjam');
     $this->db->join('inventaris', 'detail_pinjam.id_inventaris = inventaris.id_inventaris');
@@ -84,9 +84,16 @@ class Detail_model extends CI_Model {
 
   }
 
-  public function destroy($id)
+  public function destroy($id_peminjaman)
   {
+    $this->db->where('id_peminjaman', $id_peminjaman);
+    return $this->db->delete(self::TABLE_NAME);
+  }
 
+  public function destroy_single($id_detail)
+  {
+    $this->db->where('id_detail_pinjam', $id_detail);
+    return $this->db->delete(self::TABLE_NAME);
   }
 
 }

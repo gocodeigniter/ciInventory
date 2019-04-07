@@ -38,7 +38,7 @@
 
     <?php foreach( $peminjaman as $i => $row ) : ?>
       <tr>
-        <td><?= $i + 1 ?></td>
+        <td class="text-center"><?= $i + 1 ?></td>
         <td><?= $row['nama_pegawai'] ?></td>
         <td class="text-center"><?= date('D, d M Y - H:i', strtotime( $row['tanggal_pinjam'] ) ) ?></td>
         <td class="text-center"><?= date('D, d M Y - H:i', strtotime( $row['tanggal_kembali'] ) ) ?></td>
