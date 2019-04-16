@@ -44,7 +44,7 @@
           <form action="<?= base_url('detail/delete/' . $row['id_peminjaman']) ?>" method="POST">
             <a href="<?= base_url('detail/edit/' . $row['id_peminjaman']) ?>">Ubah</a> |
             <button type="submit" name="button" onclick="return confirm('Yakin ingin menghapus ?')">Hapus</button> |
-            <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>">Kembalikan</a>
+            <a href="<?= base_url('detail/return/' . $row['id_peminjaman']) ?>" onclick="return confirm('Yakin ingin mengembalikan ?')">Kembalikan</a>
           </form>
         </td>
         <thead>

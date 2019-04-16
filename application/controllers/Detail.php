@@ -180,4 +180,15 @@ class Detail extends CI_Controller {
 		redirect('/detail');
 	}
 
+	public function return($id_peminjaman)
+	{
+		$this->session->set_flashdata('msg', 'Telat Mengembalikan Barang!');
+
+		if( $this->detail_model->return($id_peminjaman) ) {
+			$this->session->set_flashdata('msg', 'Berhasil Mengembalikan Barang!');
+		}
+
+		redirect('/detail');
+	}
+
 }

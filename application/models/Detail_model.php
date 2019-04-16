@@ -7,6 +7,10 @@ class Detail_model extends CI_Model {
   public function __construct()
   {
     $this->load->database();
+
+    $this->load->model(
+			array('peminjaman_model')
+		);
   }
 
   public function all($number = NULL, $offset = NULL)
@@ -94,6 +98,27 @@ class Detail_model extends CI_Model {
   {
     $this->db->where('id_detail_pinjam', $id_detail);
     return $this->db->delete(self::TABLE_NAME);
+  }
+
+  public function return($id_peminjaman)
+  {
+    $this->db->where('id_peminjaman', $id_peminjaman);
+    $query = $this->db->get('peminjaman');
+    $peminjaman = $query->row_array();
+
+    $waktuSekarang = strtotime( date('Y-m-d H:i:s') );
+    $tanggalKembali = strtotime( $peminjaman['tanggal_kembali'] );
+
+    if( $waktuSekarang <= $tanggalKembali ) {
+      $data = array(
+        'status_peminjaman' => 'Sudah Kembali'
+      );
+
+      $this->db->where('id_peminjaman', $id_peminjaman);
+      return $this->db->update('peminjaman', $data);
+    }
+
+    return false;
   }
 
 }

@@ -46,3 +46,4 @@ $route['detail/edit/(:any)'] = 'detail/edit/$1';
 $route['detail/update/(:any)'] = 'detail/update/$1';
 $route['detail/delete/(:any)'] = 'detail/delete/$1';
 $route['detail/delete/single/(:any)'] = 'detail/delete_single/$1';
+$route['detail/return/(:any)'] = 'detail/return/$1';
