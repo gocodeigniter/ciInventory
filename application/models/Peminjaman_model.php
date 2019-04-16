@@ -30,8 +30,17 @@ class Peminjaman_model extends CI_Model {
 
   public function findByKeyword($keyword)
   {
-    $this->db->like('nama', $keyword, 'both');
-    $query = $this->db->get(self::TABLE_NAME);
+    $this->db->select(
+      'pegawai.id_pegawai, pegawai.nama_pegawai,
+      peminjaman.id_peminjaman, peminjaman.tanggal_pinjam, peminjaman.tanggal_kembali, peminjaman.status_peminjaman'
+    );
+    $this->db->from('peminjaman');
+    $this->db->join('pegawai', 'peminjaman.id_pegawai = pegawai.id_pegawai');
+
+    $this->db->like('nama_pegawai', $keyword, 'both');
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get();
 
     return $query->result_array();
   }
