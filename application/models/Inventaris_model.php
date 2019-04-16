@@ -9,6 +9,19 @@ class Inventaris_model extends CI_Model {
     $this->load->database();
   }
 
+  public function allWithOutPagging()
+  {
+    $this->db->select(
+      'inventaris.*, petugas.nama_petugas, jenis.nama_jenis, ruang.nama_ruang'
+    );
+    $this->db->from('inventaris');
+    $this->db->join('petugas', 'inventaris.id_petugas = petugas.id_petugas');
+    $this->db->join('jenis', 'inventaris.id_jenis = jenis.id_jenis');
+    $this->db->join('ruang', 'inventaris.id_ruang = ruang.id_ruang');
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
   public function all($number = NULL, $offset = NULL)
   {
     $this->db->select(

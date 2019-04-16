@@ -13,7 +13,7 @@ class Inventaris extends CI_Controller {
 			array( 'url', 'url_helper' )
 		);
     $this->load->library(
-			array( 'pagination', 'session' )
+			array( 'pagination', 'session', 'Pdf' )
 		);
   }
 
@@ -85,6 +85,12 @@ class Inventaris extends CI_Controller {
 		$this->session->set_flashdata('msg', 'Berhasil Menghapus Inventaris!');
 
 		redirect('/inventaris');
+	}
+
+	public function exportPdf()
+	{
+		$data['inventaris'] = $this->inventaris_model->allWithOutPagging();
+    $this->load->view('cetak/inventaris', $data);
 	}
 
 }

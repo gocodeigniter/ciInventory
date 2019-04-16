@@ -8,6 +8,7 @@
 </div>
 <div class="right">
   <a href="<?= base_url('peminjaman/create') ?>">Buat Peminjaman Baru</a>
+  <a href="<?= base_url('peminjaman/export') ?>">Export PDF</a>
 </div>
 <div class="clear"></div>
 

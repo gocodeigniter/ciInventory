@@ -13,6 +13,23 @@ class Detail_model extends CI_Model {
 		);
   }
 
+  public function allWithOutPagging()
+  {
+    $this->db->select(
+      'pegawai.id_pegawai, pegawai.nama_pegawai, inventaris.nama, inventaris.kode_inventaris, detail_pinjam.id_detail_pinjam,
+      detail_pinjam.id_peminjaman, detail_pinjam.jumlah, peminjaman.tanggal_pinjam, peminjaman.tanggal_kembali, peminjaman.status_peminjaman'
+    );
+    $this->db->from('detail_pinjam');
+    $this->db->join('inventaris', 'detail_pinjam.id_inventaris = inventaris.id_inventaris');
+    $this->db->join('peminjaman', 'detail_pinjam.id_peminjaman = peminjaman.id_peminjaman');
+    $this->db->join('pegawai', 'peminjaman.id_pegawai = pegawai.id_pegawai');
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get();
+
+    return $query->result_array();
+  }
+
   public function all($number = NULL, $offset = NULL)
   {
     $this->db->select(

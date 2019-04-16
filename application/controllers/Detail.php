@@ -13,7 +13,7 @@ class Detail extends CI_Controller {
 			array( 'url', 'url_helper' )
 		);
 		$this->load->library(
-			array( 'pagination', 'session' )
+			array( 'pagination', 'session', 'Pdf' )
 		);
   }
 
@@ -189,6 +189,53 @@ class Detail extends CI_Controller {
 		}
 
 		redirect('/detail');
+	}
+
+	public function exportPdf()
+	{
+		$dataDetail = [];
+		$detailPeminjaman = $this->detail_model->allWithOutPagging();
+
+		// Add Data Peminjaman into Array
+		foreach( $detailPeminjaman as $key => $row ) {
+			$data = array(
+				'id_peminjaman' => $row['id_peminjaman'],
+				'id_pegawai' => $row['id_pegawai'],
+				'nama_pegawai' => $row['nama_pegawai'],
+				'tanggal_pinjam' => $row['tanggal_pinjam'],
+				'tanggal_kembali' => $row['tanggal_kembali'],
+				'status_peminjaman' => $row['status_peminjaman'],
+				'detail' => array()
+			);
+
+			// Remove Duplicates Data in Array
+			if( !in_array( $data, $dataDetail) ) {
+				$dataDetail[ $key ] = $data;
+			}
+		}
+
+		// Reindex Array
+		$dataDetail = array_values( $dataDetail );
+
+		foreach( $detailPeminjaman as $row ) {
+			$detail = array(
+				'id_detail_pinjam' => $row['id_detail_pinjam'],
+				'kode_inventaris' => $row['kode_inventaris'],
+				'nama' => $row['nama'],
+				'jumlah' => $row['jumlah'],
+			);
+
+			// Added Detail Data with Same Id
+			for( $x = 0; $x < count( $dataDetail ); $x++ ) {
+				if( $dataDetail[ $x ]['id_peminjaman'] == $row['id_peminjaman'] ) {
+					array_push( $dataDetail[ $x ]['detail'], $detail);
+				}
+			}
+		}
+
+		$data['detail'] = $dataDetail;
+
+    $this->load->view('cetak/detail', $data);
 	}
 
 }

@@ -13,7 +13,7 @@ class Peminjaman extends CI_Controller {
 			array( 'url', 'url_helper' )
 		);
     $this->load->library(
-			array( 'pagination', 'session' )
+			array( 'pagination', 'session', 'Pdf' )
 		);
   }
 
@@ -81,6 +81,12 @@ class Peminjaman extends CI_Controller {
 		$this->session->set_flashdata('msg', 'Berhasil Menghapus Inventaris!');
 
 		redirect('/peminjaman');
+	}
+
+	public function exportPdf()
+	{
+		$data['peminjaman'] = $this->peminjaman_model->allWithOutPagging();
+    $this->load->view('cetak/peminjaman', $data);
 	}
 
 }

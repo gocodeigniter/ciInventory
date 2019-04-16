@@ -6,6 +6,9 @@
     <button type="submit" name="button">Cari</button>
   </form>
 </div>
+<div class="right">
+  <a href="<?= base_url('detail/export') ?>">Export PDF</a>
+</div>
 <div class="clear"></div>
 
 <br>

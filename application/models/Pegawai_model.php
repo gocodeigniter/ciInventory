@@ -9,6 +9,14 @@ class Pegawai_model extends CI_Model {
     $this->load->database();
   }
 
+  public function allWithOutPagging()
+  {
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get(self::TABLE_NAME);
+
+    return $query->result_array();
+  }
+
   public function all($number = NULL, $offset = NULL)
   {
     $this->db->limit($number, $offset);

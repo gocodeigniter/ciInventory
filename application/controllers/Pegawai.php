@@ -11,7 +11,7 @@ class Pegawai extends CI_Controller {
 			array( 'url', 'url_helper' )
 		);
 		$this->load->library(
-			array( 'pagination', 'session' )
+			array( 'pagination', 'session', 'Pdf' )
 		);
   }
 
@@ -76,6 +76,12 @@ class Pegawai extends CI_Controller {
 		$this->session->set_flashdata('msg', 'Berhasil Menghapus Pegawai!');
 
 		redirect('/pegawai');
+	}
+
+	public function exportPdf()
+	{
+		$data['pegawai'] = $this->pegawai_model->allWithOutPagging();
+    $this->load->view('cetak/pegawai', $data);
 	}
 
 }
