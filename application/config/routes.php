@@ -6,6 +6,11 @@ $route['default_controller'] = 'petugas';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// Login
+$route['login/index'] = 'login/index';
+$route['login/store'] = 'login/store';
+$route['logout'] = 'login/destroy';
+
 // Petugas Routes
 $route['petugas/index'] = 'petugas/index';
 $route['petugas/create'] = 'petugas/create';

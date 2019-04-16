@@ -15,6 +15,10 @@ class Detail extends CI_Controller {
 		$this->load->library(
 			array( 'pagination', 'session', 'Pdf' )
 		);
+
+		if( empty( $this->session->id_petugas ) ) {
+			redirect('login');
+		}
   }
 
 	public function index()
@@ -29,7 +33,12 @@ class Detail extends CI_Controller {
 		$this->pagination->initialize($config);
 
 		$dataDetail = [];
-		$detailPeminjaman = $this->detail_model->all($config['per_page'], $uri_segment);
+
+		if( $this->session->id_level == 1 && $this->session->id_level == 2 ) {
+			$detailPeminjaman = $this->detail_model->all($config['per_page'], $uri_segment);
+		} else {
+			$detailPeminjaman = $this->detail_model->findAll( $this->session->id_petugas );
+		}
 
 		$keyword = $this->input->get('keyword');
 		if( $keyword != null ) {
@@ -40,8 +49,8 @@ class Detail extends CI_Controller {
 		foreach( $detailPeminjaman as $key => $row ) {
 			$data = array(
 				'id_peminjaman' => $row['id_peminjaman'],
-				'id_pegawai' => $row['id_pegawai'],
-				'nama_pegawai' => $row['nama_pegawai'],
+				'id_petugas' => $row['id_petugas'],
+				'nama_petugas' => $row['nama_petugas'],
 				'tanggal_pinjam' => $row['tanggal_pinjam'],
 				'tanggal_kembali' => $row['tanggal_kembali'],
 				'status_peminjaman' => $row['status_peminjaman'],
@@ -200,8 +209,8 @@ class Detail extends CI_Controller {
 		foreach( $detailPeminjaman as $key => $row ) {
 			$data = array(
 				'id_peminjaman' => $row['id_peminjaman'],
-				'id_pegawai' => $row['id_pegawai'],
-				'nama_pegawai' => $row['nama_pegawai'],
+				'id_petugas' => $row['id_petugas'],
+				'nama_petugas' => $row['nama_petugas'],
 				'tanggal_pinjam' => $row['tanggal_pinjam'],
 				'tanggal_kembali' => $row['tanggal_kembali'],
 				'status_peminjaman' => $row['status_peminjaman'],

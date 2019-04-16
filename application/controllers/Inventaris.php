@@ -15,6 +15,10 @@ class Inventaris extends CI_Controller {
     $this->load->library(
 			array( 'pagination', 'session', 'Pdf' )
 		);
+
+		if( $this->session->id_level != 1 ) {
+			redirect('peminjaman');
+		}
   }
 
 	public function index()

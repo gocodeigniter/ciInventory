@@ -2,11 +2,11 @@
 
 <form action="<?= base_url('peminjaman/store') ?>" method="POST">
 
-  <label for="text">Petugas Peminjaman</label> <br>
-  <select class="form-control" name="pegawaiPeminjaman">
+  <label for="text">Peminjam</label> <br>
+  <select class="form-control" name="petugasPeminjaman">
     <option value="">-- Pilih Petugas --</option>
-    <?php foreach( $pegawai as $row ) : ?>
-      <option value="<?= $row['id_pegawai'] ?>"><?= $row['nama_pegawai'] ?></option>
+    <?php foreach( $petugas as $row ) : ?>
+      <option value="<?= $row['id_petugas'] ?>"><?= $row['nama_petugas'] ?></option>
     <?php endforeach; ?>
   </select>
   <br><br>

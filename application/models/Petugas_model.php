@@ -61,6 +61,12 @@ class Petugas_model extends CI_Model {
     return $query->result_array();
   }
 
+  public function findByLevelPeminjam()
+  {
+    $query = $this->db->get_where(self::TABLE_NAME, array('id_level' => '3'));
+    return $query->result_array();
+  }
+
   public function countData()
   {
     return count( $this->all() );

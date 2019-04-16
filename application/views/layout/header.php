@@ -18,21 +18,31 @@
       Inventori
     </div>
     <div class="navbar-link">
-      <ul>
-        <li> <a href="<?= base_url('petugas') ?>">Petugas</a> </li>
-        <li> <a href="<?= base_url('pegawai') ?>">Pegawai</a> </li>
-        <li> <a href="<?= base_url('inventaris') ?>">Inventaris</a> </li>
-        <li> <a href="<?= base_url('peminjaman') ?>">Peminjaman</a> </li>
-        <li> <a href="<?= base_url('detail') ?>">Detail</a> </li>
-        <li>
-          <a id="userNavbar" href="javascript:;">User</a>
-          <ul class="navbar-link-dropdown">
-            <li> <a href="javascript:;">Profil</a> </li>
-            <li> <a href="javascript:;">Pengaturan</a> </li>
-            <li> <a href="javascript:;">Keluar</a> </li>
-          </ul>
-        </li>
-      </ul>
+
+      <?php if( isset( $this->session->id_petugas ) ) : ?>
+        <ul>
+
+          <?php if( $this->session->id_level == 1 ) : ?>
+            <li> <a href="<?= base_url('petugas') ?>">Petugas</a> </li>
+            <li> <a href="<?= base_url('inventaris') ?>">Inventaris</a> </li>
+            <li> <a href="<?= base_url('peminjaman') ?>">Peminjaman</a> </li>
+            <li> <a href="<?= base_url('detail') ?>">Detail</a> </li>
+          <?php endif; ?>
+
+          <?php if( $this->session->id_level == 2 || $this->session->id_level == 3 ) : ?>
+            <li> <a href="<?= base_url('peminjaman') ?>">Peminjaman</a> </li>
+            <li> <a href="<?= base_url('detail') ?>">Detail</a> </li>
+          <?php endif; ?>
+
+          <li>
+            <a id="userNavbar" href="javascript:;"><?= explode( ' ', $this->session->nama_petugas )[0] ?></a>
+            <ul class="navbar-link-dropdown">
+              <li> <a href="<?= base_url('logout') ?>">Keluar</a> </li>
+            </ul>
+          </li>
+
+        </ul>
+      <?php endif; ?>
     </div>
     <div class="clear"></div>
   </div>

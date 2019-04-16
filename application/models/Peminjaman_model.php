@@ -11,9 +11,9 @@ class Peminjaman_model extends CI_Model {
 
   public function allWithOutPagging()
   {
-    $this->db->select('pegawai.nama_pegawai, peminjaman.*');
+    $this->db->select('petugas.nama_petugas, peminjaman.*');
     $this->db->from('peminjaman');
-    $this->db->join('pegawai', 'pegawai.id_pegawai = peminjaman.id_pegawai');
+    $this->db->join('petugas', 'pegawai.id_petugas = peminjaman.id_petugas');
 
     $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
     $query = $this->db->get();
@@ -23,9 +23,9 @@ class Peminjaman_model extends CI_Model {
 
   public function all($number = NULL, $offset = NULL)
   {
-    $this->db->select('pegawai.nama_pegawai, peminjaman.*');
+    $this->db->select('petugas.nama_petugas, peminjaman.*');
     $this->db->from('peminjaman');
-    $this->db->join('pegawai', 'pegawai.id_pegawai = peminjaman.id_pegawai');
+    $this->db->join('petugas', 'petugas.id_petugas = peminjaman.id_petugas');
     $this->db->limit($number, $offset);
 
     $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
@@ -57,6 +57,19 @@ class Peminjaman_model extends CI_Model {
     return $query->result_array();
   }
 
+  public function findAll( $id_petugas )
+  {
+    $this->db->select('petugas.nama_petugas, peminjaman.*');
+    $this->db->from('peminjaman');
+    $this->db->join('petugas', 'petugas.id_petugas = peminjaman.id_petugas');
+
+    $this->db->where('petugas.id_petugas', $id_petugas);
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get();
+
+    return $query->result_array();
+  }
+
   public function countData()
   {
     return count( $this->all() );
@@ -64,14 +77,14 @@ class Peminjaman_model extends CI_Model {
 
   public function create()
   {
-    $pegawaiPeminjaman = $this->input->post('pegawaiPeminjaman');
+    $petugasPeminjaman = $this->input->post('petugasPeminjaman');
     $kembaliPeminjaman = $this->input->post('kembaliPeminjaman');
     $kembaliPeminjaman .= ' 23:59:00';
     $tanggalPinjam = date('Y-m-d H:i:s');
     $statusPeminjaman = $this->input->post('statusPeminjaman');
 
     $data = array(
-      'id_pegawai' => $pegawaiPeminjaman,
+      'id_petugas' => $petugasPeminjaman,
       'tanggal_pinjam' => $tanggalPinjam,
       'tanggal_kembali' => $kembaliPeminjaman,
       'status_peminjaman' => $statusPeminjaman

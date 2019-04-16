@@ -8,7 +8,11 @@
 </div>
 <div class="right">
   <a href="<?= base_url('peminjaman/create') ?>">Buat Peminjaman Baru</a>
-  <a href="<?= base_url('peminjaman/export') ?>">Export PDF</a>
+
+  <?php if( $this->session->id_level == 1 ) : ?>
+    <a href="<?= base_url('peminjaman/export') ?>">Export PDF</a>
+  <?php endif; ?>
+
 </div>
 <div class="clear"></div>
 
@@ -40,7 +44,7 @@
     <?php foreach( $peminjaman as $i => $row ) : ?>
       <tr>
         <td class="text-center"><?= $i + 1 ?></td>
-        <td><?= $row['nama_pegawai'] ?></td>
+        <td><?= $row['nama_petugas'] ?></td>
         <td class="text-center"><?= date('D, d M Y - H:i', strtotime( $row['tanggal_pinjam'] ) ) ?></td>
         <td class="text-center"><?= date('D, d M Y - H:i', strtotime( $row['tanggal_kembali'] ) ) ?></td>
         <td class="text-center"><?= $row['status_peminjaman'] ?></td>

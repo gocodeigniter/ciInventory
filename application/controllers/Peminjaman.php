@@ -7,7 +7,7 @@ class Peminjaman extends CI_Controller {
   {
     parent::__construct();
     $this->load->model(
-			array('peminjaman_model', 'pegawai_model', 'inventaris_model')
+			array('peminjaman_model', 'pegawai_model', 'petugas_model', 'inventaris_model')
 		);
 		$this->load->helper(
 			array( 'url', 'url_helper' )
@@ -15,6 +15,10 @@ class Peminjaman extends CI_Controller {
     $this->load->library(
 			array( 'pagination', 'session', 'Pdf' )
 		);
+
+		if( empty( $this->session->id_petugas ) ) {
+			redirect('login');
+		}
   }
 
 	public function index()
@@ -28,7 +32,11 @@ class Peminjaman extends CI_Controller {
 
 		$this->pagination->initialize($config);
 
-		$data['peminjaman'] = $this->peminjaman_model->all($config['per_page'], $uri_segment);
+		if( $this->session->id_level == 1 && $this->session->id_level == 2 ) {
+			$data['peminjaman'] = $this->peminjaman_model->all($config['per_page'], $uri_segment);
+		} else {
+			$data['peminjaman'] = $this->peminjaman_model->findAll( $this->session->id_petugas );
+		}
 
 		$keyword = $this->input->get('keyword');
 		if( $keyword != null ) {
@@ -42,7 +50,7 @@ class Peminjaman extends CI_Controller {
 
 	public function create()
 	{
-		$data['pegawai'] = $this->pegawai_model->all();
+		$data['petugas'] = $this->petugas_model->findByLevelPeminjam();
 
 		$this->load->view('layout/header');
 		$this->load->view('peminjaman/create', $data);
