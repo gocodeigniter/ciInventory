@@ -13,6 +13,7 @@ $route['petugas/store'] = 'petugas/store';
 $route['petugas/edit/(:any)'] = 'petugas/edit/$1';
 $route['petugas/update/(:any)'] = 'petugas/update/$1';
 $route['petugas/delete/(:any)'] = 'petugas/delete/$1';
+$route['petugas/export'] = 'petugas/exportPdf';
 
 // Pegawai Routes
 $route['pegawai/index'] = 'pegawai/index';

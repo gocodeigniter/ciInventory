@@ -8,6 +8,7 @@
 </div>
 <div class="right">
   <a href="<?= base_url('petugas/create') ?>">Buat Petugas Baru</a>
+  <a href="<?= base_url('petugas/export') ?>">Export PDF</a>
 </div>
 <div class="clear"></div>
 

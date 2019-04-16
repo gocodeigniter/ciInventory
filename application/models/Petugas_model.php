@@ -9,6 +9,18 @@ class Petugas_model extends CI_Model {
     $this->load->database();
   }
 
+  public function allWithOutPagging()
+  {
+    $this->db->select('petugas.*, level.nama_level');
+    $this->db->from('petugas');
+    $this->db->join('level', 'petugas.id_level = level.id_level');
+
+    $this->db->order_by('id_' . self::TABLE_NAME, 'DESC');
+    $query = $this->db->get();
+
+    return $query->result_array();
+  }
+
   public function all($number = NULL, $offset = NULL)
   {
     $this->db->select('petugas.*, level.nama_level');
